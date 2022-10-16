@@ -1,345 +1,301 @@
+
 /*REGISTRO DE USUARIO: COMPLETAR EL FORM CON SUS DATOS + USUARIO y CONTRASEÑA ELEGIDA. ENVIARLOS A LA BASE DE DATOS*/
 
+//Objeto User
 
-/*INPUT USER*/
+class Paciente {
 
-const user1 = () =>{
+   constructor (nombre, apellido, dni, edad, genero, mail, usuario, contraseña, historial){
 
-const user = "asdf"
+      this.nombre = nombre
+      this.apellido = apellido
+      this.dni = dni
+      this.edad = edad
+      this.genero = genero
+      this.mail = mail
+      this.usuario = usuario
+      this.contraseña = contraseña
+      this.historial = historial
+   }
+}
+
+//Objeto con Array
+
+const personas = [];
+
+personas.push (new Paciente ("Cintia", "Perez", "27.432.654", "43", "Femenino SIS", "cintialamaga@gmail.com", "qwer", "123"));
+personas.push (new Paciente("Pablo", "Lopez", "28.436.832", "40", "Masculino SIS", "pablo.lopez77@gmail.com", "asdf", "1234"));
+personas.push (new Paciente("Roberto", "Carlos", "28.326.832", "50", "Masculino SIS", "robertocarlos45@gmail.com", "zxcv", "12345", "Turno Cancelado por ausencia el 18/09"));
+
+
+// INPUT USER  
 
 let signUser = prompt("Ingrese su usuario")
 
-let numberAttempts1 = 0;
-
-while( (user !== signUser) && (numberAttempts1 < 3)) {
-   
-alert("Ingresó un usuario incorrecto");
-
-signUser = prompt("Ingrese su usuario");
-
-numberAttempts1++;
-
-}
-
-if(numberAttempts1 === 3) {
-   alert("Superó la cantidad de intentos, intente nuevamente más tarde");
- 
-  
- } else {
-    console.log("El usuario es: " + signUser);
- 
- }}
-
- user1();
-  
-
-/*INPUT PASS*/
-
-const pass1 = ()=>{
-
-const userPass = "123456";
-
-let signPass = prompt("Ingrese la contraseña");
 let numberAttempts = 0;
 
-while( (userPass !== signPass) && (numberAttempts < 5)) {
-   
-alert("Ingresó la contraseña incorrecta");
+let usuariosValido = personas.find ((nombres) => {
+return nombres.usuario === signUser
+})
 
-signPass = prompt("Ingrese la contraseña");
+ while  ((usuariosValido === undefined) && (numberAttempts < 3)){
 
-numberAttempts++;
+    alert("Usuario incorrecta")
+    signUser = prompt("Ingrese su usuario")
+    usuariosValido = personas.find ((nombres) => {
+    return nombres.usuario === signUser})
+    numberAttempts++;
+
 }
 
-if(numberAttempts === 5) {
-   alert("Superó la cantidad de intentos, intente nuevamente más tarde");
- } else {
-    console.log("La contraseña es correcta");
- }}
+if(numberAttempts === 3) {
+alert("Superó la cantidad de intentos, intente nuevamente más tarde")
+}
 
- pass1 ();
-  
+// INPUT PASS 
 
- /* SELECT A MEDICAL SPECIALIST */
+function Pass (){
 
+   let signPass = prompt("Ingrese la contraseña");
+   let personaContraseña = personas.find ((nombres) => {
+   return nombres.contraseña === signPass
+   })
 
-let especialist = "";
-    
-while(especialist === "") {
-    
-   let especialistSelect = prompt("Seleccione la especialidad: Clinico / Pediatra / Traumatologo / Obstetra");
- 
-   switch(especialistSelect) {
+   let numberAttempts = 0;
    
-      case "clinico":
-      case "Clinico":
-      case "CLINICO":
-         especialist = "Clinico";
-            break;
+   while ((((signUser =="qwer") && (signPass !=="123")) || ((signUser =="asdf") &&(signPass !=="1234")) || ((signUser =="zxcv") && (signPass !=="12345"))) && ((numberAttempts < 3))) {
    
-      case "pediatra":
-      case "Pediatra":
-      case "PEDIATRA":
-         especialist = "Pediatra";
-               break;
-
-      case "traumatologo":
-      case "Traumatologo":
-      case "TRAUMATOLOGO":
-         especialist = "Traumatologo";
-            break;
-
-      case "obstetra":
-      case "Obstetra":
-      case "OBSTETRA":
-         especialist = "Obstetra";
-               break;
+       alert("Contraseña incorrecta")
+       signPass = prompt("Ingrese la contraseña")
+       personaContraseña = personas.find ((nombres) => {
+       return nombres.contraseña === signPass})
+       numberAttempts++;
    
-      default:
-            alert("Ingresó una especialidad que no está contemplada, intente nuevamente");
-         break;
+   }
+   
+   if(numberAttempts === 3) {
+   alert("Superó la cantidad de intentos, intente nuevamente más tarde")
+   }
+   
+   else {
+       console.log ("Contraseña correcta")
+       console.log (personaContraseña)
+   
+   }}
+   
+   Pass ()
+
+
+/* SELECT A MEDICAL SPECIALIST */
+
+// Objeto Specialist
+class Specialist {
+
+   constructor (select, especialista, doctor){
+
+      this.select = select
+      this.especialista = especialista
+      this.doctor = doctor
    }
 }
-    
-alert("La especialidad seleccionada es: " + especialist);
 
-console.log ("Especialidad: " + especialist);
+// Objeto con Array Specialist
+
+const especialistas = [];
+
+especialistas.push (new Specialist ( 1, "Obstetra", "Ramon Perez"));
+especialistas.push (new Specialist(2, "Pediatra", "Luis Lopez"));
+especialistas.push (new Specialist(3, "Clinico", "Carlos Roger"));
 
 
-/* SELECT AN APPOINTMENT*/ 
+let selectSpecialist =  parseInt (prompt ("Ingrese el número:  /  1:  Obstetra  /  2: Pediatra  /  3: Clinico"))
 
-if (especialist === "Obstetra"){
+let medico = especialistas.find ((medicos) => {
+   
+   return medicos.select === selectSpecialist})
 
-   let selectAppointment = "";
+console.log (medico)
 
-   while (selectAppointment === ""){
 
-      let appointment = prompt (" Ingrese 1, 2 o 3 para elegir fechas y horarios disponibles: 1 = Viernes 25/10/2022: 14:00hs / 2 = Sabado 26/10/2022: 15:00hs / 3 = Martes 29/10/2022: 16:00hs.")
+// CALENDARIO POR ESPECIALISTA // ARMÉ EL ARRAY DE ESTA FORMA (SIN CLASS y CONSTRUCTOR) PARA MOSTRAR OTRA MANERA DE HACERLO
 
-      switch (appointment){
+const obstetra = [
 
-         case "1":
-            selectAppointment = "Viernes 25/10/2022: 14:00hs";
-            break
+{opcion:1, dia: "Martes",fecha: "12", mes: "Noviembre", hora: "15:00hs"},
+{opcion:2, dia: "Jueves",fecha:"14", mes: "Noviembre", hora: "13:00hs"},
+{opcion:3, dia: "Lunes", fecha: "22", mes:"Diciembre", hora: "10:00hs"},  
+   
+]
 
-         case "2":
-            selectAppointment = "Sabado 26/10/2022: 15:00hs";
-            break
+const pediatra = [
 
-         case "3":
-            selectAppointment = "Martes 29/10/2022: 16:00hs.";
-            break
+{opcion:1, dia: "Lunes",fecha: "11", mes: "Noviembre", hora: "18:00hs"},
+{opcion:2, dia: "Sábado",fecha: "18", mes: "Noviembre", hora: "14:00hs"},
+{opcion:3, dia: "Lunes",fecha: "22", mes: "Noviembre", hora: "12:00hs"},  
 
-         default:
-            alert("Ingresó un número que no está contemplada, intente nuevamente");
-            break;
+]
+
+const clinico = [
+
+{opcion:1, dia: "Martes",fecha: "12", mes: "Noviembre", hora: "09:00hs"},
+{opcion:2, dia: "Jueves",fecha: "14", mes: "Noviembre", hora: "08:00hs"},
+{opcion:3, dia: "Martes",fecha: "23", mes: "Noviembre", hora: "11:00hs"},  
+
+]
+
+// ADMINISTRADOR
+
+// listar la disponibilidad de turnos con fecha/hora de cada especialista. 
+
+if (selectSpecialist == 1){
+
+const turnosDisponibleObstetra = obstetra.filter ((activos) => activos.mes)
+
+console.log (turnosDisponibleObstetra)}
+
+else if (selectSpecialist == 2){
+
+   const turnosDisponiblePediatra = pediatra.filter ((activos) => activos.mes)
+   
+   console.log (turnosDisponiblePediatra)}
+
+else if (selectSpecialist == 3){
+
+   const turnosDisponibleClinico = clinico.filter ((activos) => activos.mes)
+   
+   console.log (turnosDisponibleClinico)}
+
+// USUARIO:
+
+if (selectSpecialist == 1){
+
+   let ingresarDia = parseInt( prompt("Ingrese el número de turno deseado: /  1: Martes 12/11: 15:00hs /  2: Jueves 14/11: 13:00hs  /  3: Lunes 22/11: 10:00hs"))
+
+   let diaIngresado = obstetra.find ((dias)=> { 
+      return dias.opcion === ingresarDia
+
+   })
+
+   let numberAttempts1 = 0;
+
+   while ((diaIngresado === undefined) && (numberAttempts1 < 3)){
+
+      alert ("Opción incorrecta")
+      ingresarDia = parseInt( prompt("Ingrese el número de turno deseado: /  1: Martes 12/11: 15:00hs /  2: Jueves 14/11: 13:00hs  /  3: Lunes 22/11: 10:00hs"))
+      diaIngresado = obstetra.find ((dias)=> {
+      return dias === ingresarDia})
+      numberAttempts1++;
+   }
+
+   if(numberAttempts1 === 3) {
+      alert("Superó la cantidad de intentos, intente nuevamente más tarde")
       }
+
+   else {
+
+      alert ("Turno asignado")
+
    }
-   alert("Ud. tiene un turno asignado para el: " + selectAppointment);
+
+   console.log (diaIngresado)
+
+   Confirmar()
+}
+
+else if (selectSpecialist == 2){ 
+
+   let ingresarDia = parseInt( prompt("Ingrese el número de turno deseado: /  1: Lunes 11/11: 18:00hs /  2: Sabado 18/11: 14:00hs  /  3: Lunes 22/11: 12:00hs"))
+
+   let diaIngresado = pediatra.find ((dias)=> { 
+       return dias.opcion === ingresarDia
+   
+   })
+   
+   let numberAttempts1 = 0;
+   
+   while ((diaIngresado === undefined) && (numberAttempts1 < 3)){
+   
+       alert ("Opción incorrecta")
+       ingresarDia = parseInt( prompt("Ingrese el número de turno deseado: /  1: Martes 12/11: 15:00hs /  2: Jueves 14/11: 13:00hs  /  3: Lunes 22/11: 10:00hs"))
+       diaIngresado = pediatra.find ((dias)=> {
+       return dias === ingresarDia})
+       numberAttempts1++;
+   }
+   
+   if(numberAttempts1 === 3) {
+       alert("Superó la cantidad de intentos, intente nuevamente más tarde")
+       }
+   
+   else {
+   
+       alert ("Turno asignado")
+   
+   }
+
+   console.log (diaIngresado)
+
+   Confirmar()
+}
+
+else if (selectSpecialist == 3){ 
+
+   let ingresarDia = parseInt( prompt("ngrese el número de turno deseado: /  1: Martes 12/11: 9:00hs /  2: Jueves 14/11: 8:00hs  /  3: Martes 23/11: 11:00hs"))
+
+   let diaIngresado = clinico.find ((dias)=> { 
+       return dias.opcion === ingresarDia
+   
+   })
+   
+   let numberAttempts1 = 0;
+   
+   while ((diaIngresado === undefined) && (numberAttempts1 < 3)){
+   
+       alert ("Opción incorrecta")
+       ingresarDia = parseInt( prompt("Ingrese el número de turno deseado: /  1: Martes 12/11: 9:00hs /  2: Jueves 14/11: 8:00hs  /  3: Martes 23/11: 11:00hs"))
+       diaIngresado = clinico.find ((dias)=> {
+       return dias === ingresarDia})
+       numberAttempts1++;
+   }
+   
+   if(numberAttempts1 === 3) {
+       alert("Superó la cantidad de intentos, intente nuevamente más tarde")
+       }
+   
+   else {
+   
+       alert ("Turno asignado")
+   
+   }
+
+   console.log (diaIngresado)
+
+   Confirmar()
+
+}
+
+// FUNCION CONFIRMAR TURNO:
+
+function Confirmar (){
    let confirm = prompt ("Para confirmar presione:  1 ///// Para cancelar o modificar presione: 2")
 
    if ( confirm ==="1"){
-      alert ("Turno confirmado: " + especialist + " :" + selectAppointment);
+      console.log ("Turno confirmado");
    }
 
    else if (confirm ==="2") {
-   }
 
-   console.log ("Turno asignado: " + selectAppointment);
-
-   /* CANCEL APPOINTMENT */
-
-   let cancelAppointment = prompt ("Ingrese: 1 para cancelar su turno");
+   let cancelAppointment = prompt ("Ingrese 1 para confirmar la cancelacion del turno");
 
    if (cancelAppointment === "1"){
 
-      pass1 ();
+      Pass ();
 
    } else {
       console.log("La contraseña es correcta se procede a cancelar el turno");
    }
 
-   console.log("Turno CANCELADO: " + especialist + " - " +selectAppointment)
-}
-
-
-else if ( especialist === "Clinico") {
-
-   let selectAppointment = "";
-
-   while (selectAppointment === ""){
-
-      let appointment = prompt (" Ingrese 1, 2 o 3 para elegir fechas y horarios disponibles: 1 = Martes 22/10/2022: 14:00hs / 2 = Jueves 24/10/2022: 15:00hs / 3 = Lunes 28/10/2022: 16:00hs.")
-
-      switch (appointment){
-
-         case "1":
-            selectAppointment = "Martes 22/10/2022: 14:00hs";
-            break
-
-         case "2":
-            selectAppointment = "Jueves 24/10/2022: 15:00hs";
-            break
-
-         case "3":
-            selectAppointment = "Lunes 28/10/2022: 16:00hs.";
-            break
-
-         default:
-            alert("Ingresó un número que no está contemplada, intente nuevamente");
-            break;
-      }
-   }
-   alert("Ud. tiene un turno asignado para el: " + selectAppointment);
-   let confirm = prompt ("Para confirmar presione:  1 ///// Para cancelar o modificar presione: 2")
-
-   if ( confirm ==="1"){
-      alert ("Turno confirmado: " + especialist + " :" + selectAppointment);
-   }
-
-   else if (confirm ==="2") {
-
-   }
-   console.log ("Turno asignado: " + selectAppointment);
-
-      let cancelAppointment = prompt ("Ingrese: 1 para cancelar su turno");
-   
-      if (cancelAppointment === "1"){
-   
-         pass1 ();
-   
-      } else {
-         console.log("La contraseña es correcta se procede a cancelar el turno");
-      }
-   
-         console.log("Turno CANCELADO: " + especialist + " - " +selectAppointment)
-}
-   
-else if (especialist === "Pediatra"){
-
-   let selectAppointment = "";
-
-   while (selectAppointment === ""){
-
-      let appointment = prompt (" Ingrese 1, 2 o 3 para elegir fechas y horarios disponibles: 1 = Viernes 25/10/2022: 14:00hs / 2 = Sabado 26/10/2022: 15:00hs / 3 = Martes 29/10/2022: 16:00hs.")
-
-      switch (appointment){
-
-         case "1":
-            selectAppointment = "Viernes 25/10/2022: 14:00hs";
-            break
-
-         case "2":
-            selectAppointment = "Sabado 26/10/2022: 15:00hs";
-            break
-
-         case "3":
-            selectAppointment = "Martes 29/10/2022: 16:00hs.";
-            break
-
-         default:
-            alert("Ingresó un número que no está contemplada, intente nuevamente");
-            break;
-      }
-   }
-   alert("Ud. tiene un turno asignado para el: " + selectAppointment);
-   let confirm = prompt ("Para confirmar presione:  1 ///// Para cancelar o modificar presione: 2")
-
-   if ( confirm ==="1"){
-      alert ("Turno confirmado: " + especialist + " :" + selectAppointment);
-   }
-
-   else if (confirm ==="2") {
-
-   }
-   console.log ("Turno asignado: " + selectAppointment);
-
-   let cancelAppointment = prompt ("Ingrese: 1 para cancelar su turno");
-
-   if (cancelAppointment === "1"){
-
-      pass1 ();
-
-   } else {
-      console.log("La contraseña es correcta se procede a cancelar el turno");
-   }
-
-   console.log("Turno CANCELADO: " + especialist + " - " +selectAppointment)
-}
-
-else if (especialist === "Traumatologo"){
-
-   let selectAppointment = "";
-
-   while (selectAppointment === ""){
-
-      let appointment = prompt (" Ingrese 1, 2 o 3 para elegir fechas y horarios disponibles: 1 = Viernes 25/10/2022: 14:00hs / 2 = Sabado 26/10/2022: 15:00hs / 3 = Martes 29/10/2022: 16:00hs.")
-
-      switch (appointment){
-
-         case "1":
-            selectAppointment = "Viernes 25/10/2022: 14:00hs";
-            break
-
-         case "2":
-            selectAppointment = "Sabado 26/10/2022: 15:00hs";
-            break
-
-         case "3":
-            selectAppointment = "Martes 29/10/2022: 16:00hs.";
-            break
-
-         default:
-            alert("Ingresó un número que no está contemplada, intente nuevamente");
-            break;
-      }
-   }
-
-   alert("Ud. tiene un turno asignado para el: " + selectAppointment);
-   let confirm = prompt ("Para confirmar presione:  1 ///// Para cancelar o modificar presione: 2")
-
-   if ( confirm ==="1"){
-      alert ("Turno confirmado: " + especialist + " :" + selectAppointment);
-   }
-
-   else if (confirm ==="2") {
-
-   }
-
-   console.log ("Turno asignado: " + selectAppointment);
-
-   let cancelAppointment = prompt ("Ingrese: 1 para cancelar su turno");
-
-   if (cancelAppointment === "1"){
-
-      pass1 ();
-
-   } else {
-      console.log("La contraseña es correcta se procede a cancelar el turno");
-   }
-
-   console.log("Turno CANCELADO: " + especialist + " - " +selectAppointment)
-}
-
-/*ADMINISTRADOR
-
-- listar los turnos activos que tienen los medicos con fecha/hora paciente.
-
-- listar el historial de trunos por paciente.
-
-*/
-
-
-
-
-
-
-
-  
-
-
-
-
+   console.log("Turno CANCELADO")
+}}
 
 
 
