@@ -1,0 +1,98 @@
+
+
+.form {
+    padding-top: 3rem;
+    padding-bottom: 1rem;
+    width: 15rem;
+    height: 10rem;
+    align-items: center;
+    border: solid; color: rgb(53, 52, 52); border-radius: 2rem;
+    margin-left: 5%;
+
+   
+}
+
+.buttonReservar {
+    
+    color: rgb(56, 56, 129);
+    margin-top: 1rem;
+    margin-left: 40%;
+}
+
+.divEspecialista, .divDia, .divHorario {
+
+    margin-bottom: 2rem;
+    text-align:center
+}
+
+.h3 {
+
+    margin-left: 5%;
+}
+
+.formLogin {
+
+    width: 20rem;
+    height: 20rem;
+    align-items: center;
+    border: solid; color: rgb(53, 52, 52); border-radius: 2rem;
+    margin-left: 5%;
+
+}
+
+.hLogin {
+
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.loginIndex {
+
+    width: 8rem;
+    height: 6rem;
+    margin-top: 10%;
+    margin-left: 50%;
+}
+
+
+.grupo{
+
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    display:flex;
+    justify-content: center;   
+}
+
+.ingresar{
+    align-items: center;
+    margin-left: 40%;
+    margin-bottom: 5%;
+}
+
+
+.ingresarLogin{
+    align-items: center;
+    margin-left: 40%; 
+    color: rgb(8, 66, 117)
+   
+}
+
+.warnings{
+
+    text-align: center;
+}
+
+.login {
+
+    margin-top: 2rem;
+    margin-left: 5%;
+}
+
+#fechasReservadas thead tr th,
+#fechasReservadas tbody tr th {
+
+    border: 1px solid black;
+    border-collapse: collapse;
+
+} 
+
